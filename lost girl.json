@@ -1,0 +1,113 @@
+[{'score': 27.549107,
+  'show': {'_links': {'previousepisode': {'href': 'http://api.tvmaze.com/episodes/316120'},
+                      'self': {'href': 'http://api.tvmaze.com/shows/12'}},
+           'externals': {'imdb': 'tt1429449',
+                         'thetvdb': 182061,
+                         'tvrage': 26401},
+           'genres': ['Drama', 'Fantasy', 'Horror'],
+           'id': 12,
+           'image': {'medium': 'http://static.tvmaze.com/uploads/images/medium_portrait/0/137.jpg',
+                     'original': 'http://static.tvmaze.com/uploads/images/original_untouched/0/137.jpg'},
+           'language': 'English',
+           'name': 'Lost Girl',
+           'network': {'country': {'code': 'CA',
+                                   'name': 'Canada',
+                                   'timezone': 'Canada/Atlantic'},
+                       'id': 6,
+                       'name': 'Showcase'},
+           'officialSite': 'http://www.showcase.ca/lostgirl',
+           'premiered': '2010-09-12',
+           'rating': {'average': 7.9},
+           'runtime': 60,
+           'schedule': {'days': ['Sunday'], 'time': '22:00'},
+           'status': 'Ended',
+           'summary': '<p><b>Lost Girl</b> follows supernatural seductress Bo, '
+                      'a Succubus who feeds on the sexual energy of humans. '
+                      'Growing up with human parents, Bo had no reason to '
+                      'believe she was anything other than the girl next door '
+                      '— until she drained her boyfriend to death in their '
+                      'first sexual encounter. Now she has hit the road alone '
+                      'and afraid. <br> She discovers she is one of the Fae, '
+                      'creatures of legend and folklore, who pass as humans '
+                      'while feeding off them secretly and in different ways, '
+                      'as they have for millennia. Relieved yet horrified to '
+                      'find out that she is not alone, Bo decides to take the '
+                      'middle path between the humans and the Fae while '
+                      'embarking on a personal mission to unlock the secrets '
+                      'of her origin.</p><p>With the help of her human '
+                      'sidekick, Kenzi, and Dyson, a sexy police detective, Bo '
+                      'takes on a challenge every week helping a Fae or human '
+                      'client who comes to her to solve a mystery, or to right '
+                      'a wrong.</p>',
+           'type': 'Scripted',
+           'updated': 1512200227,
+           'url': 'http://www.tvmaze.com/shows/12/lost-girl',
+           'webChannel': None,
+           'weight': 90}},
+ {'score': 3.0458488,
+  'show': {'_links': {'nextepisode': {'href': 'http://api.tvmaze.com/episodes/1331166'},
+                      'previousepisode': {'href': 'http://api.tvmaze.com/episodes/1326870'},
+                      'self': {'href': 'http://api.tvmaze.com/shows/31982'}},
+           'externals': {'imdb': None, 'thetvdb': 332983, 'tvrage': None},
+           'genres': ['Adventure', 'Anime'],
+           'id': 31982,
+           'image': {'medium': 'http://static.tvmaze.com/uploads/images/medium_portrait/127/319883.jpg',
+                     'original': 'http://static.tvmaze.com/uploads/images/original_untouched/127/319883.jpg'},
+           'language': 'Japanese',
+           'name': "Girls' Last Tour",
+           'network': {'country': {'code': 'JP',
+                                   'name': 'Japan',
+                                   'timezone': 'Asia/Tokyo'},
+                       'id': 167,
+                       'name': 'AT-X'},
+           'officialSite': 'http://girls-last-tour.com',
+           'premiered': '2017-10-06',
+           'rating': {'average': None},
+           'runtime': 30,
+           'schedule': {'days': ['Friday'], 'time': '21:30'},
+           'status': 'Running',
+           'summary': '<p>Civilization is dead, but Chito and Yuuri are still '
+                      'alive. So they hop aboard their beloved Kettenkrad '
+                      'motorbike and aimlessly wander the ruins of the world '
+                      'they once knew. Day after hopeless day, they look for '
+                      'their next meal and fuel for their ride. But as long as '
+                      'the two are together, even an existence as bleak as '
+                      'theirs has a ray or two of sunshine in it, whether '
+                      "they're sucking down their fill of soup or hunting for "
+                      'machine parts to tinker with. For two girls in a world '
+                      'full of nothing, the experiences and feelings the two '
+                      'share give them something to live for...</p>',
+           'type': 'Animation',
+           'updated': 1512636228,
+           'url': 'http://www.tvmaze.com/shows/31982/girls-last-tour',
+           'webChannel': None,
+           'weight': 60}},
+ {'score': 2.463264,
+  'show': {'_links': {'previousepisode': {'href': 'http://api.tvmaze.com/episodes/1357339'},
+                      'self': {'href': 'http://api.tvmaze.com/shows/33399'}},
+           'externals': {'imdb': 'tt2778780',
+                         'thetvdb': 276215,
+                         'tvrage': None},
+           'genres': [],
+           'id': 33399,
+           'image': {'medium': 'http://static.tvmaze.com/uploads/images/medium_portrait/135/338558.jpg',
+                     'original': 'http://static.tvmaze.com/uploads/images/original_untouched/135/338558.jpg'},
+           'language': 'English',
+           'name': 'The Most Popular Girls in School',
+           'network': None,
+           'officialSite': 'https://www.youtube.com/user/TheMostPopularGirls',
+           'premiered': '2012-05-01',
+           'rating': {'average': None},
+           'runtime': None,
+           'schedule': {'days': ['Tuesday'], 'time': ''},
+           'status': 'Running',
+           'summary': '<p>The Overland Park Cheerleading Squad go on various '
+                      'misadventures to try to reclaim their school from '
+                      'treason, hipsters, back-stabbers, and other enemies as '
+                      'they battle their way up to the top of the social '
+                      'ladder.</p>',
+           'type': 'Animation',
+           'updated': 1510965546,
+           'url': 'http://www.tvmaze.com/shows/33399/the-most-popular-girls-in-school',
+           'webChannel': {'country': None, 'id': 21, 'name': 'YouTube'},
+           'weight': 85}}]
