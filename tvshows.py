@@ -16,16 +16,21 @@ def main():
         spacing = ' '
         spacing *= 3 - len(str(result_num))
         show_name = show['name']
-        if show['network'] is None or show['network']['name'] is None:
-            network_name = 'unknown network'
+        if show['network'] is not None:
+            network_name = show['network'].get('name')
+        elif show['webChannel'] is not None:
+            network_name = show['webChannel'].get('name')
         else:
-            network_name = show['network']['name']
+            network_name = None
+        if network_name is None:
+            network_name = ''
         if show['premiered'] is None:
-            premiered_year = 'year unknown'
+            premiered_year = ''
         else:
             premiered_year = show['premiered'][:4]
-        print(str(result_num) + '.' + spacing + show_name + ' (' + network_name + ', ' +
-              str(premiered_year) + ')')
+        show_desc = ', '.join([network_name, premiered_year])
+
+        print(str(result_num) + '.' + spacing + show_name + ' (' + show_desc + ')')
 
 if __name__ == '__main__':
     main()
