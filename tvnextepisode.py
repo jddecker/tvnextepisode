@@ -52,7 +52,7 @@ def main():
 
         if nextepisode_time is not None:
             print(' @ ' + str(nextepisode_time.hour) +
-                  ':' + str(nextepisode_time.minute))
+                  ':' + str('{:02d}'.format(nextepisode_time.minute)))
 
 
 if __name__ == '__main__':
