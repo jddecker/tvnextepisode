@@ -1,6 +1,7 @@
 """Gets the date of the next episode"""
 
 import datetime
+import sys
 
 import requests
 
@@ -15,6 +16,8 @@ def main():
     api = 'http://api.tvmaze.com/singlesearch/shows'
     parameters = {'q': query, 'embed': 'nextepisode'}
     response = requests.get(api, params=parameters)
+    if response.status_code != 200:
+        sys.exit("Can't find show or TV Maze API is down")
     show = response.json()
 
     name = show['name']
@@ -51,8 +54,8 @@ def main():
               str(nextepisode_date.day) + '/' + str(nextepisode_date.year), end='')
 
         if nextepisode_time is not None:
-            print(' @ ' + str(nextepisode_time.hour) +
-                  ':' + str('{:02d}'.format(nextepisode_time.minute)))
+            print(' @ {:02d}:{:02d}'.format(
+                nextepisode_time.hour, nextepisode_time.minute))
 
 
 if __name__ == '__main__':
