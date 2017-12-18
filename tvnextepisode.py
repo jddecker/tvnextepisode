@@ -7,10 +7,10 @@ import requests
 
 def main():
     """
-    Run when script is run. Input a TV show name and returns if the show has a next episode and
+    Run on startup. Input a TV show name and returns if the show has a next episode and
     when it will air
     """
-    
+
     query = input('When is the next episode for: ')
     api = 'http://api.tvmaze.com/singlesearch/shows'
     parameters = {'q': query, 'embed': 'nextepisode'}
