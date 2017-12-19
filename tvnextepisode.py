@@ -5,6 +5,10 @@ import sys
 
 import requests
 
+def check_status(response):
+    """Check API status_code and close if it isn't 200"""
+    if response.status_code != 200:
+        sys.exit("Can't find show or TV Maze is down")
 
 def main():
     """
@@ -16,8 +20,7 @@ def main():
     api = 'http://api.tvmaze.com/singlesearch/shows'
     parameters = {'q': query, 'embed': 'nextepisode'}
     response = requests.get(api, params=parameters)
-    if response.status_code != 200:
-        sys.exit("Can't find show or TV Maze API is down")
+    check_status(response)
     show = response.json()
 
     name = show['name']
@@ -49,14 +52,12 @@ def main():
     if nextepisode_date is None:
         print('has no scheduled next episode')
     else:
-        print('next episode is', end=' ')
-        print(str(nextepisode_date.month) + '/' +
-              str(nextepisode_date.day) + '/' + str(nextepisode_date.year), end='')
+        print('next episode is {}/{}/{}'.format(nextepisode_date.month,
+                                                nextepisode_date.day, nextepisode_date.year),
+              end='')
 
         if nextepisode_time is not None:
-            print(' @ {:02d}:{:02d}'.format(
-                nextepisode_time.hour, nextepisode_time.minute))
-
+            print(' @ {:02d}:{:02d}'.format(nextepisode_time.hour, nextepisode_date.minute))
 
 if __name__ == '__main__':
     main()
