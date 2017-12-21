@@ -10,6 +10,22 @@ def check_status(response):
     if response.status_code != 200:
         sys.exit("Can't find show or TV Maze is down")
 
+def print_output(name, premiered, nextepisode_date, nextepisode_time):
+    """Print information to the terminal"""
+    print(name, end=' ')
+    if premiered is not None:
+        print('(' + str(premiered.year) + ')', end=' ')
+
+    if nextepisode_date is None:
+        print('has no scheduled next episode')
+    else:
+        print('next episode is {}/{}/{}'.format(nextepisode_date.month,
+                                                nextepisode_date.day, nextepisode_date.year),
+              end='')
+
+        if nextepisode_time is not None:
+            print(' @ {:02d}:{:02d}'.format(nextepisode_time.hour, nextepisode_date.minute))
+
 def main():
     """
     Run on startup. Input a TV show name and returns if the show has a next episode and
@@ -45,19 +61,7 @@ def main():
         nextepisode_date = None
         nextepisode_time = None
 
-    print(name, end=' ')
-    if premiered is not None:
-        print('(' + str(premiered.year) + ')', end=' ')
-
-    if nextepisode_date is None:
-        print('has no scheduled next episode')
-    else:
-        print('next episode is {}/{}/{}'.format(nextepisode_date.month,
-                                                nextepisode_date.day, nextepisode_date.year),
-              end='')
-
-        if nextepisode_time is not None:
-            print(' @ {:02d}:{:02d}'.format(nextepisode_time.hour, nextepisode_date.minute))
+    print_output(name, premiered, nextepisode_date, nextepisode_time)
 
 if __name__ == '__main__':
     main()
