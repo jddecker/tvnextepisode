@@ -39,6 +39,7 @@ def main():
     check_status(response)
     show = response.json()
 
+    # Getting variables from converted json data
     name = show['name']
     if show['premiered'] is not None:
         premiered = datetime.datetime.strptime(show['premiered'], '%Y-%m-%d')
