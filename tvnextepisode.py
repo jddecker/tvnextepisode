@@ -41,10 +41,11 @@ def main():
 
     # Getting variables from converted json data
     name = show['name']
+    premiered = None
+    nextepisode_date = None
+    nextepisode_time = None
     if show['premiered'] is not None:
         premiered = datetime.datetime.strptime(show['premiered'], '%Y-%m-%d')
-    else:
-        premiered = None
 
     if '_embedded' in show:
         if 'nextepisode' in show['_embedded']:
@@ -55,12 +56,6 @@ def main():
             else:
                 nextepisode_time = datetime.datetime.strptime(
                     show['_embedded']['nextepisode']['airtime'], '%H:%M')
-        else:
-            nextepisode_date = None
-            nextepisode_time = None
-    else:
-        nextepisode_date = None
-        nextepisode_time = None
 
     print_output(name, premiered, nextepisode_date, nextepisode_time)
 
