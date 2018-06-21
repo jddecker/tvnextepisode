@@ -1,14 +1,16 @@
-"""Gets the date of the next episode"""
+"""Gets the date of the next episode of a TV show"""
 
 import datetime
 import sys
 
 import requests
 
+
 def check_status(response):
     """Check API status_code and close if it isn't 200"""
     if response.status_code != 200:
         sys.exit("Can't find show or TV Maze is down")
+
 
 def print_output(name, premiered, nextepisode_date, nextepisode_time):
     """Print information to the terminal"""
@@ -24,7 +26,9 @@ def print_output(name, premiered, nextepisode_date, nextepisode_time):
               end='')
 
         if nextepisode_time is not None:
-            print(' @ {:02d}:{:02d}'.format(nextepisode_time.hour, nextepisode_date.minute))
+            print(' @ {:02d}:{:02d}'.format(
+                nextepisode_time.hour, nextepisode_date.minute))
+
 
 def main():
     """
@@ -58,6 +62,7 @@ def main():
                     show['_embedded']['nextepisode']['airtime'], '%H:%M')
 
     print_output(name, premiered, nextepisode_date, nextepisode_time)
+
 
 if __name__ == '__main__':
     main()
