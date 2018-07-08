@@ -7,13 +7,11 @@ import requests
 
 
 def main():
-    """
-    Run on startup. Input a TV show name and returns if the show has a next episode and
-    when it will air
-    """
-
     # Getting info from TV Maze API and making sure there is a 200 response
-    query = input('When is the next episode for: ')
+    if sys.argv[1:]:
+        query = ' '.join(sys.argv[1:])
+    else:
+        query = input('When is the next episode for: ')
     api = 'http://api.tvmaze.com/singlesearch/shows'
     parameters = {'q': query, 'embed': 'nextepisode'}
     response = requests.get(api, params=parameters)
