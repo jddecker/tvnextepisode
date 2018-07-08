@@ -1,33 +1,9 @@
 """Gets the date of the next episode of a TV show"""
 
-import datetime
+from datetime import datetime
 import sys
 
 import requests
-
-
-def check_status(response):
-    """Check API status_code and close if it isn't 200"""
-    if response.status_code != 200:
-        sys.exit("Can't find show or TV Maze is down")
-
-
-def print_output(name, premiered, nextepisode_date, nextepisode_time):
-    """Print information to the terminal"""
-    print(name, end=' ')
-    if premiered is not None:
-        print('(' + str(premiered.year) + ')', end=' ')
-
-    if nextepisode_date is None:
-        print('has no scheduled next episode')
-    else:
-        print('next episode is {}/{}/{}'.format(nextepisode_date.month,
-                                                nextepisode_date.day, nextepisode_date.year),
-              end='')
-
-        if nextepisode_time is not None:
-            print(' @ {:02d}:{:02d}'.format(
-                nextepisode_time.hour, nextepisode_date.minute))
 
 
 def main():
@@ -36,11 +12,13 @@ def main():
     when it will air
     """
 
+    # Getting info from TV Maze API and making sure there is a 200 response
     query = input('When is the next episode for: ')
     api = 'http://api.tvmaze.com/singlesearch/shows'
     parameters = {'q': query, 'embed': 'nextepisode'}
     response = requests.get(api, params=parameters)
-    check_status(response)
+    if response.status_code != 200:
+        sys.exit("Can't find show or TV Maze is down")
     show = response.json()
 
     # Getting variables from converted json data
@@ -49,19 +27,27 @@ def main():
     nextepisode_date = None
     nextepisode_time = None
     if show['premiered'] is not None:
-        premiered = datetime.datetime.strptime(show['premiered'], '%Y-%m-%d')
-
+        premiered = datetime.strptime(show['premiered'], '%Y-%m-%d')
     if '_embedded' in show:
         if 'nextepisode' in show['_embedded']:
-            nextepisode_date = datetime.datetime.strptime(
+            nextepisode_date = datetime.strptime(
                 show['_embedded']['nextepisode']['airdate'], '%Y-%m-%d')
-            if show['_embedded']['nextepisode']['airtime'] == "":
-                nextepisode_time = None
-            else:
-                nextepisode_time = datetime.datetime.strptime(
+            if show['_embedded']['nextepisode']['airtime'] != "":
+                nextepisode_time = datetime.strptime(
                     show['_embedded']['nextepisode']['airtime'], '%H:%M')
 
-    print_output(name, premiered, nextepisode_date, nextepisode_time)
+    # Print information to the terminal
+    print(name, end=' ')
+    if premiered is not None:
+        print('(' + str(premiered.year) + ')', end=' ')
+    if nextepisode_date is None:
+        print('has no scheduled next episode')
+    else:
+        print('next episode is {}/{}/{}'.format(nextepisode_date.month,
+                                                nextepisode_date.day, nextepisode_date.year), end='')
+        if nextepisode_time is not None:
+            print(' @ {:02d}:{:02d}'.format(
+                nextepisode_time.hour, nextepisode_date.minute))
 
 
 if __name__ == '__main__':
