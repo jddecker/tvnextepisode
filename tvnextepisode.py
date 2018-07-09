@@ -1,6 +1,6 @@
 """Gets the date of the next episode of a TV show"""
 
-from datetime import datetime
+from datetime import datetime as dt
 import sys
 
 import requests
@@ -22,30 +22,37 @@ def main():
     # Getting variables from converted json data
     name = show['name']
     premiered = None
-    nextepisode_date = None
-    nextepisode_time = None
+    ep_date = None
+    ep_time = None
     if show['premiered'] is not None:
-        premiered = datetime.strptime(show['premiered'], '%Y-%m-%d')
+        premiered = dt.strptime(show['premiered'], '%Y-%m-%d')
     if '_embedded' in show:
         if 'nextepisode' in show['_embedded']:
-            nextepisode_date = datetime.strptime(
+            ep_date = dt.strptime(
                 show['_embedded']['nextepisode']['airdate'], '%Y-%m-%d')
             if show['_embedded']['nextepisode']['airtime'] != "":
-                nextepisode_time = datetime.strptime(
+                ep_time = dt.strptime(
                     show['_embedded']['nextepisode']['airtime'], '%H:%M')
 
     # Print information to the terminal
     print(name, end=' ')
     if premiered is not None:
         print('(' + str(premiered.year) + ')', end=' ')
-    if nextepisode_date is None:
+    if ep_date is None:
         print('has no scheduled next episode')
     else:
-        print('next episode is {}/{}/{}'.format(nextepisode_date.month,
-                                                nextepisode_date.day, nextepisode_date.year), end='')
-        if nextepisode_time is not None:
-            print(' @ {:02d}:{:02d}'.format(
-                nextepisode_time.hour, nextepisode_date.minute))
+        month = ep_date.month
+        day = ep_date.day
+        year = ep_date.year
+        print('next episode is {}/{}/{}'.format(month, day, year), end='')
+        if ep_time is not None:
+            hour = ep_time.hour
+            minute = ep_time.minute
+            am_pm = 'am'
+            if hour > 12:
+                hour -= 12
+                am_pm = 'pm'
+            print(' @ {}:{:02d} {}'.format(hour, minute, am_pm))
 
 
 if __name__ == '__main__':
