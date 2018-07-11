@@ -52,7 +52,7 @@ def main():
             if hour > 12:
                 hour -= 12
                 am_pm = 'pm'
-            print(' @ {}:{:02d} {}'.format(hour, minute, am_pm))
+            print(' @ {}:{:02d}{}'.format(hour, minute, am_pm))
 
 
 if __name__ == '__main__':
