@@ -39,6 +39,9 @@ def main():
                 ep_time = ep_time - td(hours=12)
                 am_pm = 'pm'
             print(' @ {}:{:02d} {}'.format(ep_time.hour, ep_time.minute, am_pm))
+    
+    # Printing TV Maze disclaimer
+    print("(Info provided by TVmaze.com)")
 
 
 def tvmazequery(show_name):
@@ -66,6 +69,7 @@ def tvmazequery(show_name):
         if ep_time != "":
             ep_time = dt.strptime(ep_time, '%H:%M')
     
+    # Returning results as a dictionary
     return {'name': name, 'premiered': premiered, 'ep_date': ep_date, 'ep_time': ep_time}
 
 if __name__ == '__main__':
