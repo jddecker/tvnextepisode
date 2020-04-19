@@ -1,13 +1,18 @@
 """Gets the date of the next episode of a TV show"""
 
+import sys
+import json
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 from datetime import datetime as dt
 from datetime import timedelta as td
-import sys
-
-import requests
 
 
 def main():
+    # Printing statement at the top
+    print('Find out when the next episode of a TV show.')
+    print('Information provided by TVmaze.com <https://tvmaze.com>', end='\n\n')
+
     # Getting query info for which show to look up
     if sys.argv[1:]:
         query = ' '.join(sys.argv[1:])
@@ -40,19 +45,24 @@ def main():
                 ep_time = ep_time - td(hours=12)
                 am_pm = 'pm'
             print(' @ {}:{:02d} {}'.format(ep_time.hour, ep_time.minute, am_pm))
-
-    # Printing TV Maze disclaimer
-    print("(Info provided by TVmaze.com)")
+        else:
+            print('')
 
 
 def tvmazequery(show_name):
     """Query show on TV Maze's API and return the name, premiered year, and the next episode date and time as a dictionary"""
-    api = 'http://api.tvmaze.com/singlesearch/shows'
-    parameters = {'q': show_name, 'embed': 'nextepisode'}
-    response = requests.get(api, params=parameters)
-    if response.status_code != 200:
-        sys.exit("Can't find show or TV Maze is down")
-    show = response.json()
+
+    # Getting show query with the API
+    api = 'https://api.tvmaze.com/singlesearch/shows'
+    request = Request(url=api + f'?q={show_name}&embed=nextepisode')
+    try:
+        response = urlopen(request)
+    except URLError as e:
+        sys.exit("Server couldn't complete request. Error: " + str(e.reason))
+    except URLError as e:
+        sys.exit('Failed to reach the server. Error: ' + str(e.reason))
+    else:
+        show = json.loads(response.read().decode('utf-8'))
 
     # Getting variables from converted json data
     name = show['name']
@@ -67,7 +77,7 @@ def tvmazequery(show_name):
     # Getting show next episode date and time if exists
     if ep_date:
         ep_date = dt.strptime(ep_date, '%Y-%m-%d')
-        if ep_time != "":
+        if ep_time != '':
             ep_time = dt.strptime(ep_time, '%H:%M')
 
     # Returning results as a dictionary
