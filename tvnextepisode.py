@@ -3,6 +3,7 @@
 import sys
 import json
 from urllib.request import Request, urlopen
+from urllib.parse import quote
 from urllib.error import URLError, HTTPError
 from datetime import datetime as dt
 from datetime import timedelta as td
@@ -54,7 +55,7 @@ def tvmazequery(show_name):
 
     # Getting show query with the API
     api = 'https://api.tvmaze.com/singlesearch/shows'
-    request = Request(url=api + f'?q={show_name}&embed=nextepisode')
+    request = Request(url=api + f'?q={quote(show_name)}&embed=nextepisode')
     try:
         response = urlopen(request)
     except URLError as e:
