@@ -3,7 +3,7 @@
 import sys
 import json
 from urllib.request import Request, urlopen
-from urllib.parse import quote
+from urllib.parse import urlencode
 from urllib.error import URLError, HTTPError
 from datetime import datetime as dt
 from datetime import timedelta as td
@@ -47,7 +47,7 @@ def main():
                 am_pm = 'pm'
             print(' @ {}:{:02d} {}'.format(ep_time.hour, ep_time.minute, am_pm))
         else:
-            print('')
+            print('')  # Adding a newline if no time
 
 
 def tvmazequery(show_name):
@@ -55,7 +55,9 @@ def tvmazequery(show_name):
 
     # Getting show query with the API
     api = 'https://api.tvmaze.com/singlesearch/shows'
-    request = Request(url=api + f'?q={quote(show_name)}&embed=nextepisode')
+    params = {'q': show_name, 'embed': 'nextepisode'}
+    request = Request(url=api + '?' + urlencode(params))
+
     try:
         response = urlopen(request)
     except URLError as e:
