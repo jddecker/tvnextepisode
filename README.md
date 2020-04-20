@@ -8,12 +8,18 @@ You can just run the script or you can put an argument after it.
 
 For example:
 
-`python3 tvnextepisode.py`
+```
+$ python3 tvnextepisode.py
+```
 
 OR
 
-`python3 tvnextepisode.py "what we do in the shadows"`
+```
+$ python3 tvnextepisode.py "what we do in the shadows"
+```
 
 OR
 
-`python3 tvnextepisode.py what we do in the shadows`
+```
+python3 tvnextepisode.py what we do in the shadows
+```
