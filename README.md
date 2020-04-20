@@ -21,5 +21,5 @@ $ python3 tvnextepisode.py "what we do in the shadows"
 OR
 
 ```
-python3 tvnextepisode.py what we do in the shadows
+$ python3 tvnextepisode.py what we do in the shadows
 ```
