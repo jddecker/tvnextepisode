@@ -51,7 +51,20 @@ def main():
 
 
 def tvmazequery(show_name):
-    """Query show on TV Maze's API and return the name, premiered year, and the next episode date and time as a dictionary"""
+    """Query show on TV Maze's API
+
+    Args: show_name (str): Name of the TV show
+
+    Returns:
+        A dict mapping keys from the returned json. For example:
+
+        {
+            'name': 'What We Do in the Shadows',
+            'premiered': 2019,
+            'ep_date': '2020-06-10'
+            'ep_time': '22:00'
+        }
+    """
 
     # Getting show query with the API
     api = 'https://api.tvmaze.com/singlesearch/shows'
