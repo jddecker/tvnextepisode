@@ -21,5 +21,5 @@ $response = Invoke-RestMethod -Uri "https://api.tvmaze.com/singlesearch/shows" -
 if ($null -eq $response._embedded.nextepisode.airstamp) {
     Write-Output "No new episodes of $($response.name) at this time"
 } else {
-    Write-Output "The next episode of $($response.name) is $(Get-Date $response._embedded.nextepisode.airstamp -Format 'MM/dd/yyyy @ h:mm tt')"
+    Write-Output "The next episode of $($response.name) ($(Get-Date $response.premiered -Format 'yyyy')) is $(Get-Date $response._embedded.nextepisode.airstamp -Format 'MM/dd/yyyy @ h:mm tt')"
 }
