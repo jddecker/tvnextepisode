@@ -6,8 +6,8 @@ param (
     [Parameter(Mandatory)][string]$Show  # What show to query
 )
 
-"Find out when the next episode of a TV show."
-"Information provided by TVmaze.com <https://tvmaze.com>`n"
+Write-Output "Find out when the next episode of a TV show."
+Write-Output "Information provided by TVmaze.com <https://tvmaze.com>`n"
 
 # Setting up search variables
 $search = @{
