@@ -75,7 +75,7 @@ def tvmazequery(show_name):
         response = urlopen(request)
     except URLError as e:
         sys.exit("Server couldn't complete request. Error: " + str(e.reason))
-    except URLError as e:
+    except HTTPError as e:
         sys.exit('Failed to reach the server. Error: ' + str(e.reason))
     else:
         show = json.loads(response.read().decode('utf-8'))
