@@ -50,7 +50,7 @@ def main():
             print('')  # Adding a newline if no time
 
 
-def tvmazequery(show_name):
+def tvmazequery(show):
     """Query show on TV Maze's API
 
     Args: show_name (str): Name of the TV show
@@ -61,16 +61,16 @@ def tvmazequery(show_name):
         {
             'name': 'What We Do in the Shadows',
             'premiered': 2019,
-            'ep_date': '2020-06-10'
-            'ep_time': '22:00'
+            'next_ep': '2020-06-10T02:00:00+00:00'
         }
     """
 
     # Getting show query with the API
     api = 'https://api.tvmaze.com/singlesearch/shows'
-    params = {'q': show_name, 'embed': 'nextepisode'}
-    request = Request(url=api + '?' + urlencode(params))
+    body = {'q': show, 'embed': 'nextepisode'}
+    request = Request(url=api + '?' + urlencode(body))
 
+    # Print error if request can't be made
     try:
         response = urlopen(request)
     except URLError as e:
@@ -78,26 +78,21 @@ def tvmazequery(show_name):
     except HTTPError as e:
         sys.exit('Failed to reach the server. Error: ' + str(e.reason))
     else:
-        show = json.loads(response.read().decode('utf-8'))
+        # Load results into json object
+        results = json.loads(response.read())
 
     # Getting variables from converted json data
-    name = show['name']
-    premiered = show.get('premiered')
-    ep_date = show.get('_embedded', {}).get('nextepisode', {}).get('airdate')
-    ep_time = show.get('_embedded', {}).get('nextepisode', {}).get('airtime')
-
-    # Getting show premiered date if exists
-    if premiered:
-        premiered = dt.strptime(premiered, '%Y-%m-%d')
-
-    # Getting show next episode date and time if exists
-    if ep_date:
-        ep_date = dt.strptime(ep_date, '%Y-%m-%d')
-        if ep_time != '':
-            ep_time = dt.strptime(ep_time, '%H:%M')
+    next_ep_dict = {}
+    next_ep_dict['name'] = results['name']
+    next_ep_dict['premiered'] = results['premiered']
+    # Next episode airstamp doesn't exist if there isn't another episode scheduled
+    try:
+        next_ep_dict['next_ep'] = results['_embedded']['nextepisode']['airstamp']
+    except KeyError:
+        next_ep_dict['next_ep'] = None
 
     # Returning results as a dictionary
-    return {'name': name, 'premiered': premiered, 'ep_date': ep_date, 'ep_time': ep_time}
+    return next_ep_dict
 
 
 if __name__ == '__main__':
