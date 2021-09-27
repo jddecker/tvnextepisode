@@ -2,11 +2,11 @@
 
 import sys
 import json
+from argparse import ArgumentParser
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
 from urllib.error import URLError, HTTPError
-from datetime import datetime as dt
-from datetime import timedelta as td
+from datetime import datetime
 
 
 def main():
@@ -14,40 +14,20 @@ def main():
     print('Find out when the next episode of a TV show.')
     print('Information provided by TVmaze.com <https://tvmaze.com>', end='\n\n')
 
-    # Getting query info for which show to look up
-    if sys.argv[1:]:
-        query = ' '.join(sys.argv[1:])
+    # Getting information from command line
+    parser = ArgumentParser()
+    parser.add_argument('-s', '--show')
+
+    args = parser.parse_args()
+
+    # Querying TV Maze API
+    results = tvmazequery(args.show)
+    
+    # Checking if there is a new episode
+    if results['next_ep'] is None:
+        print(f"No new episodes of {results['name']} ({results['premiered'].year}) at this time")
     else:
-        query = input('When is the next episode for: ')
-
-    # Querying TV Maze API and setting variables
-    results = tvmazequery(query)
-    name = results['name']
-    premiered = results['premiered']
-    ep_date = results['ep_date']
-    ep_time = results['ep_time']
-
-    # Printing premiered year
-    print(name, end=' ')
-    if premiered:
-        print('(' + str(premiered.year) + ')', end=' ')
-
-    # Printing episode date and time info
-    if ep_date is None:
-        print('has no scheduled next episode')
-    else:
-        print('next episode is {}/{}/{}'.format(ep_date.month,
-                                                ep_date.day, ep_date.year), end='')
-
-        # Figuring out am/pm
-        if ep_time:
-            am_pm = 'am'
-            if ep_time.hour > 12:
-                ep_time = ep_time - td(hours=12)
-                am_pm = 'pm'
-            print(' @ {}:{:02d} {}'.format(ep_time.hour, ep_time.minute, am_pm))
-        else:
-            print('')  # Adding a newline if no time
+        print(f"The next episode of {results['name']} ({results['premiered'].year}) is {results['next_ep'].strftime('%m/%d/%Y @ %I:%M %p %z')}")
 
 
 def tvmazequery(show):
@@ -60,7 +40,7 @@ def tvmazequery(show):
 
         {
             'name': 'What We Do in the Shadows',
-            'premiered': 2019,
+            'premiered': 2019-03-27,
             'next_ep': '2020-06-10T02:00:00+00:00'
         }
     """
@@ -84,10 +64,14 @@ def tvmazequery(show):
     # Getting variables from converted json data
     next_ep_dict = {}
     next_ep_dict['name'] = results['name']
-    next_ep_dict['premiered'] = results['premiered']
+
+    # Converting premiered to a datetime object
+    next_ep_dict['premiered'] = datetime.strptime(results['premiered'], '%Y-%m-%d')
+
     # Next episode airstamp doesn't exist if there isn't another episode scheduled
     try:
-        next_ep_dict['next_ep'] = results['_embedded']['nextepisode']['airstamp']
+        # next_ep as a datetime object
+        next_ep_dict['next_ep'] = datetime.strptime(results['_embedded']['nextepisode']['airstamp'], '%Y-%m-%dT%H:%M:%S%z')
     except KeyError:
         next_ep_dict['next_ep'] = None
 
