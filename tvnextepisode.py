@@ -17,7 +17,6 @@ def main():
     # Getting information from command line
     parser = ArgumentParser()
     parser.add_argument('-s', '--show')
-
     args = parser.parse_args()
 
     # Querying TV Maze API
