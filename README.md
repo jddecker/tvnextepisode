@@ -1,8 +1,8 @@
 # TV Show next episode
 
-A quick Python script to query [TV Maze](https://tvmaze.com) API and find the next airtime for a TV show.
+A quick Python and PowerShell and to query [TV Maze](https://tvmaze.com) API and find the next airtime for a TV show.
 
-## Usage
+## Python Usage
 
 You can just run the script or you can put an argument after it.
 
@@ -22,4 +22,18 @@ OR
 
 ```
 $ python3 tvnextepisode.py what we do in the shadows
+```
+
+## PowerShell Usage
+
+You can add the show to the commandline with the `Show` variable:
+
+```
+.\tvnextepisode.ps1 -Show "what we do in the shadows"
+```
+
+Or you can run the script and it'll prompt for the show:
+
+```
+.\tvnextepisode.ps1
 ```
