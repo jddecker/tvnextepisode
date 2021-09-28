@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
 from urllib.error import URLError, HTTPError
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def main():
@@ -26,7 +26,9 @@ def main():
     if results['next_ep'] is None:
         print(f"No new episodes of {results['name']} ({results['premiered'].year}) at this time")
     else:
-        print(f"The next episode of {results['name']} ({results['premiered'].year}) is {results['next_ep'].strftime('%m/%d/%Y @ %I:%M %p %z')}")
+        # Converting UTC to local time for next episode
+        next_ep_local = results['next_ep'].replace(tzinfo=timezone.utc).astimezone(tz=None)
+        print(f"The next episode of {results['name']} ({results['premiered'].year}) is {next_ep_local.strftime('%m/%d/%Y @ %I:%M %p %z (%Z)')}")
 
 
 def tvmazequery(show):
