@@ -6,22 +6,22 @@ A quick Python and PowerShell and to query [TV Maze](https://tvmaze.com) API and
 
 You can just run the script or you can put an argument after it.
 
-For example:
+With the `-s` flag:
+
+```
+$ python3 tvnextepisode.py -s "what we do in the shadows"
+```
+
+Or with the `--show` flag:
+
+```
+$ python3 tvnextepisode.py --show "what we do in the shadows"
+```
+
+Or you can run it and it'll prompt for the show:
 
 ```
 $ python3 tvnextepisode.py
-```
-
-OR
-
-```
-$ python3 tvnextepisode.py "what we do in the shadows"
-```
-
-OR
-
-```
-$ python3 tvnextepisode.py what we do in the shadows
 ```
 
 ## PowerShell Usage
