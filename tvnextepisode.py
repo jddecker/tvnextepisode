@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Gets the date of the next episode of a TV show"""
 
 import sys
