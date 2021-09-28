@@ -16,11 +16,21 @@ def main():
 
     # Getting information from command line
     parser = ArgumentParser()
-    parser.add_argument('-s', '--show')
+    parser.add_argument('-s', '--show', type=str, help='what show to look up')
     args = parser.parse_args()
 
+    # If show not called on commandline then ask for input
+    if args.show:
+        show = args.show
+    else:
+        show = input("What show to look up?: ")
+    
+    # If show is blank then exit
+    if len(show) == 0:
+        sys.exit('Show name is blank')
+
     # Querying TV Maze API
-    results = tvmazequery(args.show)
+    results = tvmazequery(show)
     
     # Checking if there is a new episode
     if results['next_ep'] is None:
@@ -41,7 +51,7 @@ def tvmazequery(show):
 
         {
             'name': 'What We Do in the Shadows',
-            'premiered': 2019-03-27,
+            'premiered': '2019-03-27',
             'next_ep': '2020-06-10T02:00:00+00:00'
         }
     """
