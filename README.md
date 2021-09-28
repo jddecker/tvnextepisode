@@ -12,16 +12,16 @@ For example:
 $ python3 tvnextepisode.py
 ```
 
-OR
+OR with the `-s` flag:
 
 ```
-$ python3 tvnextepisode.py "what we do in the shadows"
+$ python3 tvnextepisode.py -s "what we do in the shadows"
 ```
 
-OR
+OR with the `--show` flag:
 
 ```
-$ python3 tvnextepisode.py what we do in the shadows
+$ python3 tvnextepisode.py --show "what we do in the shadows"
 ```
 
 ## PowerShell Usage
