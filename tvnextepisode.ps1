@@ -1,13 +1,13 @@
 <#
-Querying TVMaze's API to get when the next episode of a show will air
+    Querying TVMaze's API to get when the next episode of a show will air
 #>
 
 param (
-    [Parameter(Mandatory)][string]$Show  # What show to query
+    [Parameter(Mandatory)][string] $Show  # What show to query
 )
 
-Write-Output "Find out when the next episode of a TV show."
-Write-Output "Information provided by TVmaze.com <https://tvmaze.com>`n"
+"Find out when the next episode of a TV show."
+"Information provided by TVmaze.com <https://tvmaze.com>`n"
 
 # Setting up search variables
 $search = @{
@@ -19,7 +19,7 @@ $response = Invoke-RestMethod -Uri "https://api.tvmaze.com/singlesearch/shows" -
 
 # If no next episode air stamp then no new episode
 if ($null -eq $response._embedded.nextepisode.airstamp) {
-    Write-Output "No new episodes of $($response.name) at this time"
+    "No new episodes of $($response.name) at this time"
 } else {
     # Getting timezone name
     if ((Get-Date).IsDaylightSavingTime()) {
@@ -27,5 +27,5 @@ if ($null -eq $response._embedded.nextepisode.airstamp) {
     } else {
         $tzname = (Get-Timezone).StandardName
     }
-    Write-Output "The next episode of $($response.name) ($(Get-Date $response.premiered -Format 'yyyy')) is $(Get-Date $response._embedded.nextepisode.airstamp -Format 'MM/dd/yyyy @ h:mm tt K') ($($tzname))"
+    "The next episode of $($response.name) ($(Get-Date $response.premiered -Format 'yyyy')) is $(Get-Date $response._embedded.nextepisode.airstamp -Format 'MM/dd/yyyy @ h:mm tt K') ($($tzname))"
 }
