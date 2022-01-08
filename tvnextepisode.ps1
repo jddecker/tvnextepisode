@@ -6,8 +6,11 @@ param (
     [Parameter(Mandatory)][string] $Show  # What show to query
 )
 
-"Find out when the next episode of a TV show."
-"Information provided by TVmaze.com <https://tvmaze.com>`n"
+@"
+Find out when the next episode of a TV show
+Information provided by TVmaze.com <https://tvmaze.com>
+
+"@
 
 # Setting up search variables
 $search = @{
