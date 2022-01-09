@@ -32,6 +32,7 @@ try {
     $response = Invoke-RestMethod -Uri "https://api.tvmaze.com/singlesearch/shows" -Method "Get" -Body $search
 } catch {
     $_.Exception  # Output error
+    exit 1
 }
 
 $name = "$($response.name) ($(Get-Date $response.premiered -Format 'yyyy'))"
