@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-"""Gets the date of the next episode of a TV show"""
-
 import sys
 import json
 from argparse import ArgumentParser
@@ -12,10 +10,6 @@ from datetime import datetime, timezone
 
 
 def main():
-    # Printing statement at the top
-    print('Find out when the next episode of a TV show.')
-    print('Information provided by TVmaze.com <https://tvmaze.com>', end='\n\n')
-
     # Getting information from command line
     parser = ArgumentParser()
     parser.add_argument('-s', '--show', type=str, help='what show to look up')
@@ -25,7 +19,7 @@ def main():
     if args.show:
         show = args.show
     else:
-        show = input("What show to look up?: ")
+        show = input('What show to look up?: ')
     
     # If show is blank then exit
     if len(show) == 0:
@@ -41,16 +35,23 @@ def main():
         # Converting UTC to local time for next episode
         next_ep_local = results['next_ep'].replace(tzinfo=timezone.utc).astimezone(tz=None)
         print(f"The next episode of {results['name']} ({results['premiered'].year}) is {next_ep_local.strftime('%m/%d/%Y @ %I:%M %p %z (%Z)')}")
+    print('Results from TVmaze.com <https://tvmaze.com>')
 
 
 def tvmazequery(show):
-    """Query show on TV Maze's API
+    """
+    Querying TVMaze's API to get when the next episode of a show will be released
 
-    Args: show_name (str): Name of the TV show
+    TVMaze website: https://tvmaze.com
+    TVMaze API: https://api.tvmaze.com
+
+    Args:
+        show_name (str): Name of the TV show
 
     Returns:
-        A dict mapping keys from the returned json. For example:
-
+        A dict mapping keys from the returned json.
+        
+        For example:
         {
             'name': 'What We Do in the Shadows',
             'premiered': '2019-03-27',
