@@ -35,7 +35,8 @@ def main():
         # Converting UTC to local time for next episode
         next_ep_local = results['next_ep'].replace(tzinfo=timezone.utc).astimezone(tz=None)
         print(f"The next episode of {results['name']} ({results['premiered'].year}) is {next_ep_local.strftime('%m/%d/%Y @ %I:%M %p %z (%Z)')}")
-    print('Results from TVmaze.com <https://tvmaze.com>')
+    
+    print('Results from TVmaze <https://tvmaze.com>')
 
 
 def tvmazequery(show):
@@ -67,30 +68,29 @@ def tvmazequery(show):
     # Print error if request can't be made
     try:
         response = urlopen(request)
-    except URLError as e:
-        sys.exit("Server couldn't complete request. Error: " + str(e.reason))
     except HTTPError as e:
         sys.exit('Failed to reach the server. Error: ' + str(e.reason))
-    else:
-        # Load results into json object
-        results = json.loads(response.read())
+    except URLError as e:
+        sys.exit("Server couldn't complete request. Error: " + str(e.reason))
+
+    # Load results into json object
+    results = json.loads(response.read())
 
     # Getting variables from converted json data
-    next_ep_dict = {}
-    next_ep_dict['name'] = results['name']
+    name = results['name']
 
     # Converting premiered to a datetime object
-    next_ep_dict['premiered'] = datetime.strptime(results['premiered'], '%Y-%m-%d')
+    premiered = datetime.strptime(results['premiered'], '%Y-%m-%d')
 
     # Next episode airstamp doesn't exist if there isn't another episode scheduled
     try:
         # next_ep as a datetime object
-        next_ep_dict['next_ep'] = datetime.strptime(results['_embedded']['nextepisode']['airstamp'], '%Y-%m-%dT%H:%M:%S%z')
+        next_ep = datetime.strptime(results['_embedded']['nextepisode']['airstamp'], '%Y-%m-%dT%H:%M:%S%z')
     except KeyError:
-        next_ep_dict['next_ep'] = None
+        next_ep = None
 
     # Returning results as a dictionary
-    return next_ep_dict
+    return {'name': name, 'premiered': premiered, 'next_ep': next_ep}
 
 
 if __name__ == '__main__':
