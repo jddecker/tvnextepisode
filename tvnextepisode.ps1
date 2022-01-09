@@ -2,10 +2,10 @@
     .SYNOPSIS
         Find out when the next episode of a TV show
     .DESCRIPTION
-        Querying TVMaze's API to get when the next episode of a show will be released
+        Querying TVmaze's API to get when the next episode of a show will be released
 
-        TVMaze website: https://tvmaze.com
-        TVMaze API: https://api.tvmaze.com
+        TVmaze website: https://tvmaze.com
+        TVmaze API: https://api.tvmaze.com
     .PARAMETER Show
         The name of the show to query
     .INPUTS
@@ -49,4 +49,4 @@ if ($null -eq $response._embedded.nextepisode.airstamp) {
     "The next episode of $name is $(Get-Date $response._embedded.nextepisode.airstamp -Format 'dddd MM/dd/yyyy @ h:mm tt K') ($($tzname))"
 }
 
-"Results from TVmaze.com <https://tvmaze.com>"
+"Results from TVmaze <https://tvmaze.com>"
