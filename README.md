@@ -29,11 +29,11 @@ $ python3 tvnextepisode.py
 You can add the show to the commandline with the `Show` variable:
 
 ```
-.\tvnextepisode.ps1 -Show "what we do in the shadows"
+PS> .\tvnextepisode.ps1 -Show "what we do in the shadows"
 ```
 
 Or you can run the script and it'll prompt for the show:
 
 ```
-.\tvnextepisode.ps1
+PS> .\tvnextepisode.ps1
 ```
